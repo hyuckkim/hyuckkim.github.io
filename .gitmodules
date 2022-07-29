@@ -1,0 +1,9 @@
+[submodule "LearnCSS"]
+	path = LearnCSS
+	url = https://github.com/hyuckkim/LearnCSS
+[submodule "stone-editor"]
+	path = stone-editor
+	url = https://github.com/hyuckkim/stone-editor
+[submodule "Online-ModernArt-Maker"]
+	path = Online-ModernArt-Maker
+	url = https://github.com/hyuckkim/Online-ModernArt-Maker
