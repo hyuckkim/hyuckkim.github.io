@@ -20,12 +20,12 @@
 
     onMount(async () => {
         data = await _getData(_id);
-        content = unified()
+        content = (await unified()
             .use(markdown)
             .use(remarkRehype)
             .use(html)
             .use(rehypeHighlight)
-            .processSync(data.data)
+            .process(data.data))
             .toString();
     });
 </script>
