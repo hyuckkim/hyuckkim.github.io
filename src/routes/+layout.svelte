@@ -1,6 +1,6 @@
 <script>import "../app.scss";</script>
 <div class="root container">
-    <header style="padding: 0;">
+    <header>
         <nav>
             <ul>
                 <li><a href="/"><strong>라이브러리와 싸우는 사람</strong></a></li>
@@ -19,8 +19,8 @@
         background-color: #999999;
     }
     .root {
-        background-color: #fff;
-        min-height: 98vh;
+        background-color: #ffffffcc;
+        min-height: 100vh;
         margin: 0 auto;
         padding: 0 24px;
         border-radius: 4px;
