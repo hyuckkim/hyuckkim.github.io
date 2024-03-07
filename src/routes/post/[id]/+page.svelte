@@ -7,6 +7,7 @@
     import markdown from "remark-parse";
     import remarkRehype from "remark-rehype";
     import html from "rehype-stringify";
+    import rehypeHighlight from "rehype-highlight";
 
     let data: {
         metadata: {
@@ -23,9 +24,10 @@
             .use(markdown)
             .use(remarkRehype)
             .use(html)
+            .use(rehypeHighlight)
             .processSync(data.data)
             .toString();
-    })
+    });
 </script>
 
 {#if !!data}
@@ -34,6 +36,7 @@
     <p>{data.metadata.date}</p>
 </section>
 <section>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark-reasonable.min.css">
     <div bind:innerHTML={content} contenteditable="false" />
 </section>
 {/if}
