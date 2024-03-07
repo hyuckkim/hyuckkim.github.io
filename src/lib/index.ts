@@ -14,22 +14,35 @@ export async function _fetchData(page: number = 0) {
         }))
     );
 
-    const parsed = list.map(d => {
-        const nameOnly = splitNameOnly(d.name);
-        const { metadata, body } = separateMetadata(d.data as string);
-        
-        return {
-            name: nameOnly,
-            metadata,
-            data: body,
-        };
-    });
+    const parsed = list.map(d => ({
+        ...parseMarkdownWithMetadata(d.data as string),
+        name: splitNameOnly(d.name)
+    }));
 
     
     return {
         size: list.length,
         data: parsed
     };
+}
+
+export async function _getData(name: string) {
+    const data = import.meta.glob("/src/writings/*.md", {
+        query: "?raw",
+        import: "default",
+    });
+    const file = await data[`/src/writings/${name}.md`]();
+    return parseMarkdownWithMetadata(file as string);
+}
+
+function parseMarkdownWithMetadata(data: string) {{
+    const { metadata, body } = separateMetadata(data);
+    
+    return {
+        metadata,
+        data: body,
+    };
+}
 }
 
 function splitNameOnly(fullname: string): string {
@@ -55,6 +68,6 @@ function separateMetadata(document: string): {
 
     return {
         metadata: metadatas,
-        body: splitted[1],
+        body: splitted[2],
     }
 }

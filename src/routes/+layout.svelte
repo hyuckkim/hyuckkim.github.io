@@ -22,7 +22,7 @@
         background-color: #ffffffcc;
         min-height: 100vh;
         margin: 0 auto;
-        padding: 0 24px;
+        padding: 0 24px 6px;
         border-radius: 4px;
     }
 </style>
