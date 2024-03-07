@@ -16,7 +16,7 @@
         data: string;
     } | null = null;
 
-    let content = "<h1>hello, world!</h1>";
+    let content = "";
 
     onMount(async () => {
         data = await _getData(_id);
