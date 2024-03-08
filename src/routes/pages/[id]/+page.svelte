@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { base } from "$app/paths";
     import { page } from "$app/stores";
     import { _fetchData } from "$lib";
     import Pagination from "$lib/components/pagination.svelte";
@@ -10,7 +11,7 @@
 <strong>{$page.params.id} 페이지</strong>
 {#each data.posts.data as writes}
 <article>
-    <h4><a href={`/post/${writes.name}`}>{writes.metadata.title}</a></h4>
+    <h4><a href={`${base}/post/${writes.name}`}>{writes.metadata.title}</a></h4>
     <p>
         {writes.data}
     </p>

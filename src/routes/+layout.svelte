@@ -1,12 +1,15 @@
-<script>import "../app.scss";</script>
+<script>
+    import { base } from "$app/paths";
+    import "../app.scss";
+</script>
 <div class="root container">
     <header>
         <nav>
             <ul>
-                <li><a href="/"><strong>라이브러리와 싸우는 사람</strong></a></li>
+                <li><a href={`${base}/`}><strong>라이브러리와 싸우는 사람</strong></a></li>
             </ul>
             <ul>
-                <li><a href="/about">about</a></li>
+                <li><a href={`${base}/about`}>about</a></li>
             </ul>
         </nav>
     </header>

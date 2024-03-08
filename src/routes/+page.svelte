@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { base } from "$app/paths";
     import { _fetchData } from "$lib"; 
     import Pagination from "$lib/components/pagination.svelte";
     import type { PageData } from "./$types";
@@ -9,7 +10,7 @@
 <strong>글 목록 ({data.posts.size})</strong>
 {#each data.posts.data as writes}
 <article>
-    <h4><a href={`/post/${writes.name}`}>{writes.metadata.title}</a></h4>
+    <h4><a href={`${base}/post/${writes.name}`}>{writes.metadata.title}</a></h4>
     <p>
         {writes.data}
     </p>

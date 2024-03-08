@@ -16,10 +16,23 @@ export async function _fetchData(page: number = 0) {
         }))
     );
 
-    const parsed = sliced.map(d => ({
-        ...parseMarkdownWithMetadata(d.data as string),
-        name: splitNameOnly(d.name)
-    }));
+    const parsed = sliced.map(d => {
+        if (typeof d.data === "string") {
+            const markdown = parseMarkdownWithMetadata(d.data);
+            return {
+                metadata: markdown.metadata,
+                data: markdown.data.slice(0, 120),
+                name: splitNameOnly(d.name)
+            }
+        }
+        else {
+            return {
+                metadata: {},
+                data: "",
+                name: splitNameOnly(d.name)
+            }
+        }
+    });
 
     
     return {
@@ -33,18 +46,20 @@ export async function _getData(name: string) {
         query: "?raw",
         import: "default",
     });
+    if (!data[`/src/writings/${name}.md`]) throw Error('not found');
     const file = await data[`/src/writings/${name}.md`]();
-    return parseMarkdownWithMetadata(file as string);
+    if (typeof file !== "string") return {metadata: {}, data: ""};
+
+    return parseMarkdownWithMetadata(file);
 }
 
-function parseMarkdownWithMetadata(data: string) {{
+function parseMarkdownWithMetadata(data: string) {
     const { metadata, body } = separateMetadata(data);
     
     return {
         metadata,
         data: body,
     };
-}
 }
 
 function splitNameOnly(fullname: string): string {
@@ -58,8 +73,8 @@ function separateMetadata(document: string): {
     metadata: {[key: string]: string },
     body: string,
 } {
-    const splitted = document.split('---\r\n');
-    const metadatas = splitted[1].split('\r\n')
+    const splitted = document.split(/---\r\n|---\n/);
+    const metadatas = splitted[1].split(/\r\n|\n/)
         .filter(d => !!d)
         .map(d => d.split(': '))
         .filter(d => !!d[1])
