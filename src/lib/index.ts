@@ -5,16 +5,18 @@ export async function _fetchData(page: number = 0) {
         query: "?raw",
         import: "default",
     });
-    const list = await Promise.all(Object.keys(data)
+    const list = Object.keys(data)
         .map(k => ({name: k, data: data[k]}))
-        .sort((a, b) => a.name < b.name ? 1 : -1)
+        .sort((a, b) => a.name < b.name ? 1 : -1);
+
+    const sliced = await Promise.all(list
         .slice(page * pageLength, page * pageLength + pageLength)
         .map(async l => ({
             name: l.name, data: await l.data()
         }))
     );
 
-    const parsed = list.map(d => ({
+    const parsed = sliced.map(d => ({
         ...parseMarkdownWithMetadata(d.data as string),
         name: splitNameOnly(d.name)
     }));
