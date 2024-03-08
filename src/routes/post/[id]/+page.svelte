@@ -1,4 +1,5 @@
 <script lang="ts">
+    import Markdown from "$lib/components/markdown.svelte";
     import type { PageData } from "./$types";
 
     export let data: PageData;
@@ -8,10 +9,7 @@
     <h1>{data.title}</h1>
     <p>{data.date}</p>
 </section>
-<section>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark-reasonable.min.css">
-    <div bind:innerHTML={data.content} contenteditable="false" />
-</section>
+<Markdown data={data.content}/>
 <style>
     .top {
         display: flex;

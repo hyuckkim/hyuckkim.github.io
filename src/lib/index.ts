@@ -1,3 +1,9 @@
+import { unified } from "unified";
+import markdown from "remark-parse";
+import remarkRehype from "remark-rehype";
+import html from "rehype-stringify";
+import rehypeHighlight from "rehype-highlight";
+
 // place files you want to import through the `$lib` alias in this folder.
 export async function _fetchData(page: number = 0) {
     const pageLength = 10;
@@ -87,4 +93,14 @@ function separateMetadata(document: string): {
         metadata: metadatas,
         body: splitted[2],
     }
+}
+
+export async function _buildMarkdown(data: string): Promise<string> {
+    return (await unified()
+        .use(markdown)
+        .use(remarkRehype)
+        .use(html)
+        .use(rehypeHighlight)
+        .process(data))
+        .toString()
 }
