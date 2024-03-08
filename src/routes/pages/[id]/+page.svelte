@@ -7,7 +7,6 @@
     export let data: PageData;
 </script>
 
-{#if data.posts}
 <strong>{$page.params.id} 페이지</strong>
 {#each data.posts.data as writes}
 <article>
@@ -28,7 +27,6 @@
 </article>
 {/each}
 <Pagination pages={Math.ceil(data.posts.size / 10)} current={parseInt($page.params.id)} />
-{/if}
 
 <style>
     article {
