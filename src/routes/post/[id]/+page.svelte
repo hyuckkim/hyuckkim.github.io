@@ -16,4 +16,7 @@
         justify-content: space-between;
         align-items: end;
     }
+    .top p {
+        text-wrap: nowrap;
+    }
 </style>
