@@ -9,6 +9,7 @@
                 <li><a href={`${base}/`}><strong>라이브러리와 싸우는 사람</strong></a></li>
             </ul>
             <ul>
+                <li><a href={`${base}/new`}>글쓰기</a></li>
                 <li><a href={`${base}/about`}>about</a></li>
             </ul>
         </nav>
