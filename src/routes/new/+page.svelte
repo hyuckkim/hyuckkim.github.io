@@ -54,6 +54,9 @@
         color: gray;
     }
     textarea {
-        height: 600px;
+        height: 500px;
+        font-size: 14px;
+        resize: none;
+        padding: 8px;
     }
 </style>
