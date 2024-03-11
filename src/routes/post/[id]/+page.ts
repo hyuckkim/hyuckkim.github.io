@@ -1,5 +1,5 @@
 import type { PageLoad } from "./$types"
-import { _getData } from "$lib";
+import { _buildMarkdown, _getData } from "$lib";
 
 export const load: PageLoad = async ({ params }) => {
     const data = await _getData(params.id);
@@ -8,6 +8,6 @@ export const load: PageLoad = async ({ params }) => {
         title: data.metadata.title,
         date: data.metadata.date,
         tags: data.metadata.tags.split(', '),
-        content: (data.data)
+        content: await _buildMarkdown(data.data)
     }
 }

@@ -1,8 +1,8 @@
 import { unified } from "unified";
-import markdown from "remark-parse";
 import remarkRehype from "remark-rehype";
-import html from "rehype-stringify";
 import rehypeHighlight from "rehype-highlight";
+import remarkParse from "remark-parse";
+import rehypeStringify from "rehype-stringify";
 
 // place files you want to import through the `$lib` alias in this folder.
 export async function _fetchData(page: number = 0) {
@@ -97,9 +97,9 @@ function separateMetadata(document: string): {
 
 export async function _buildMarkdown(data: string): Promise<string> {
     return (await unified()
-        .use(markdown)
+        .use(remarkParse)
         .use(remarkRehype)
-        .use(html)
+        .use(rehypeStringify)
         .use(rehypeHighlight)
         .process(data))
         .toString()

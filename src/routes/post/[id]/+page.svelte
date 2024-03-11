@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Markdown from "$lib/components/markdown.svelte";
+    import ParsedMarkdown from "$lib/components/parsedMarkdown.svelte";
     import type { PageData } from "./$types";
 
     export let data: PageData;
@@ -9,7 +9,7 @@
     <h1>{data.title}</h1>
     <p>{data.date}</p>
 </section>
-<Markdown data={data.content}/>
+<ParsedMarkdown data={data.content}/>
 <style>
     .top {
         display: flex;
