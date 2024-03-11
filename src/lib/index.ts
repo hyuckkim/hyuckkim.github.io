@@ -59,6 +59,29 @@ export async function _getData(name: string) {
     return parseMarkdownWithMetadata(file);
 }
 
+export async function _getAllTags() {
+    const data = import.meta.glob("/src/writings/*.md", {
+        query: "?raw",
+        import: "default",
+    });
+
+    const list = Object.keys(data)
+        .map(k => ({name: k, data: data[k]}))
+        .sort((a, b) => a.name < b.name ? 1 : -1);
+
+    const sliced = await Promise.all(list
+        .map(async l => ({
+            name: l.name, data: await l.data()
+        }))
+    );
+
+    const tags = sliced
+        .map(v => (typeof v.data === "string") ? parseMarkdownWithMetadata(v.data) : undefined)
+        .map(v => (v !== undefined) ? v.metadata.tags.split(", ") : undefined);
+
+    return [...new Set(tags.flat())].filter((v): v is string => v !== undefined);
+}
+
 function parseMarkdownWithMetadata(data: string) {
     const { metadata, body } = separateMetadata(data);
     
