@@ -98,8 +98,8 @@ function separateMetadata(document: string): {
 export async function _buildMarkdown(data: string): Promise<string> {
     return (await unified()
         .use(remarkParse)
-        .use(remarkRehype)
-        .use(rehypeStringify)
+        .use(remarkRehype, {allowDangerousHtml: true})
+        .use(rehypeStringify, {allowDangerousHtml: true})
         .use(rehypeHighlight)
         .process(data))
         .toString()
