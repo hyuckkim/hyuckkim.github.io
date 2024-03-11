@@ -124,7 +124,7 @@
 
         const bind = () => {
             window.addEventListener("mousemove", (e) => {
-                config.position = { x: e.pageX, y: e.pageY };
+                config.position = { x: e.clientX, y: e.clientY };
             });
 
             window.addEventListener("resize", () => {
