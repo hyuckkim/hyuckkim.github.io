@@ -20,6 +20,11 @@
         <main class="container">
             <slot />
         </main>
+        <footer>
+            <a href="https://github.com/hyuckkim/hyuckkim.github.io/">
+                <img src="https://github.com/hyuckkim/hyuckkim.github.io/actions/workflows/deploy.yml/badge.svg" alt="">
+            </a>
+        </footer>
     </div>
 </div>
 
@@ -37,5 +42,8 @@
         position: absolute;
         width: 100%;
         height: 100%;
+    }
+    footer {
+        padding: 8px;
     }
 </style>
