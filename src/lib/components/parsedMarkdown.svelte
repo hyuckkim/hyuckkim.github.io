@@ -1,6 +1,4 @@
 <script lang="ts">
-    import { _buildMarkdown } from "$lib";
-
     export let data: string;
 </script>
 
