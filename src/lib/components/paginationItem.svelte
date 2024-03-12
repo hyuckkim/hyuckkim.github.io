@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { base } from '$app/paths';
     export let page: number;
     export let current: number;
     export let path: string;
@@ -7,13 +6,17 @@
 
 <hgroup>
     {#if current === page}
-    <strong><a href={`${path}/${page}`} class="contrast">
-        {page}
-    </a></strong>
+        <strong
+            ><a href={`${path}/${page}`} class="contrast">
+                {page}
+            </a></strong
+        >
     {:else}
-    <p><a href={`${path}/${page}`} class="contrast">
-        {page}
-    </a></p>
+        <p>
+            <a href={`${path}/${page}`} class="contrast">
+                {page}
+            </a>
+        </p>
     {/if}
 </hgroup>
 

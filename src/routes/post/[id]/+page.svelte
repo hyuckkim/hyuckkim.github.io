@@ -1,15 +1,15 @@
-<svelte:head>
-    <title>{data.title} - 블로그</title>
-</svelte:head>
-
 <script lang="ts">
-    import ParsedMarkdown from "$lib/components/parsedMarkdown.svelte";
-    import PostTag from "$lib/components/postTag.svelte";
+    import ParsedMarkdown from '$lib/components/parsedMarkdown.svelte';
+    import PostTag from '$lib/components/postTag.svelte';
 
-    import type { PageData } from "./$types";
+    import type { PageData } from './$types';
 
     export let data: PageData;
 </script>
+
+<svelte:head>
+    <title>{data.title} - 블로그</title>
+</svelte:head>
 
 <hgroup>
     <section class="top">
@@ -18,11 +18,12 @@
     </section>
     <div>
         {#each data.tags as tag}
-        <PostTag tag={tag}/>
+            <PostTag {tag} />
         {/each}
     </div>
 </hgroup>
-<ParsedMarkdown data={data.content}/>
+<ParsedMarkdown data={data.content} />
+
 <style>
     .top {
         display: flex;

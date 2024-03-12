@@ -1,8 +1,9 @@
 <script>
-    import { base } from "$app/paths";
-    import Stars from "$lib/components/stars.svelte";
-    import "../app.scss";
+    import { base } from '$app/paths';
+    import Stars from '$lib/components/stars.svelte';
+    import '../app.scss';
 </script>
+
 <Stars />
 <div class="absolute">
     <div class="root container">
@@ -25,7 +26,10 @@
         </div>
         <footer>
             <a href="https://github.com/hyuckkim/hyuckkim.github.io/">
-                <img src="https://github.com/hyuckkim/hyuckkim.github.io/actions/workflows/deploy.yml/badge.svg" alt="">
+                <img
+                    src="https://github.com/hyuckkim/hyuckkim.github.io/actions/workflows/deploy.yml/badge.svg"
+                    alt=""
+                />
             </a>
         </footer>
     </div>
@@ -40,7 +44,7 @@
         min-height: 100vh;
         margin: 0 auto;
         padding: 0 24px 6px;
-        
+
         display: flex;
         flex-direction: column;
         justify-content: space-between;

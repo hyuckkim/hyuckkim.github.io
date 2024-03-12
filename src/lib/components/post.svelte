@@ -1,18 +1,18 @@
 <script lang="ts">
-    import PostTag from "./postTag.svelte";
+    import PostTag from './postTag.svelte';
 
     export let href: string, title: string, data: string, tags: string[], date: string;
 </script>
 
 <article>
-    <h4><a href={href}>{title}</a></h4>
+    <h4><a {href}>{title}</a></h4>
     <p>
         {data}
     </p>
     <div class="bottom">
         <div class="tags">
             {#each tags as tag}
-                <PostTag tag={tag} />
+                <PostTag {tag} />
             {/each}
         </div>
         <div class="date">
@@ -36,7 +36,7 @@
         overflow: hidden;
         display: -webkit-box;
         -webkit-line-clamp: 2; /* number of lines to show */
-        line-clamp: 2; 
+        line-clamp: 2;
         -webkit-box-orient: vertical;
     }
     article .bottom {

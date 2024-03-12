@@ -1,10 +1,10 @@
 <script lang="ts">
-    import { base } from "$app/paths";
+    import { base } from '$app/paths';
 
     export let tag: string;
 </script>
 
-<a  href={`${base}/tag/${tag}`} class="contrast"><small>#{tag}</small></a>
+<a href={`${base}/tag/${tag}`} class="contrast"><small>#{tag}</small></a>
 
 <style>
     small {
