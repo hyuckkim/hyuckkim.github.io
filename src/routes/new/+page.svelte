@@ -1,12 +1,15 @@
 <script lang="ts">
     import { _fetchData } from "$lib";
     import Markdown from "$lib/components/markdown.svelte";
+    import { Check } from "lucide-svelte";
 
     $: isPreview = false;
     let title = "";
     let tags = "";
     let post = "";
     let area: HTMLTextAreaElement;
+
+    let saved = false;
 
     const getDay = () => {
         const today = new Date();
@@ -29,6 +32,10 @@
 
     const doSubmit = () => {
         navigator.clipboard.writeText(getStr());
+        saved = true;
+        setTimeout(() => {
+            saved = false;
+        }, 3000);
     }
 
     const handleShortcut = (e: KeyboardEvent) => {
@@ -98,7 +105,15 @@
 <!-- svelte-ignore a11y-no-redundant-roles -->
 <fieldset role="group">
     <input placeholder="제목" bind:value={title} />
-    <input type="button" value="복사" on:click={doSubmit} disabled={!title || !tags || !post}/>
+    <button value="복사" on:click={doSubmit} disabled={!title || !tags || !post}>
+    {#if saved}
+    <div class="spin">
+        <Check size="22" />
+    </div>
+    {:else}
+    복사
+    {/if}
+    </button>
 </fieldset>
 <input placeholder="태그" bind:value={tags} />
 <div role="group">
@@ -121,5 +136,24 @@
         font-size: 14px;
         resize: none;
         padding: 8px;
+    }
+    fieldset input {
+        flex: 11;
+    }
+    fieldset button {
+        text-wrap: nowrap;
+        flex: 1;
+    } 
+    .spin {
+        animation: spin 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
     }
 </style>
