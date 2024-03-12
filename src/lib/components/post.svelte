@@ -32,6 +32,13 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
+    article h4 {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* number of lines to show */
+        line-clamp: 2; 
+        -webkit-box-orient: vertical;
+    }
     article .bottom {
         display: flex;
         justify-content: space-between;
