@@ -14,6 +14,7 @@
                     </ul>
                     <ul>
                         <li><a href={`${base}/new`}>글쓰기</a></li>
+                        <li><a href={`${base}/tag`}>tag</a></li>
                         <li><a href={`${base}/about`}>about</a></li>
                     </ul>
                 </nav>

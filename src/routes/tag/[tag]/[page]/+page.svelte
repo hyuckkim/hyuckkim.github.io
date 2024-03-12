@@ -1,14 +1,16 @@
 <script lang="ts">
     import { base } from "$app/paths";
-    import { _fetchData } from "$lib";
+    import { page } from "$app/stores";
     import Pagination from "$lib/components/pagination.svelte";
     import Post from "$lib/components/post.svelte";
+
     import type { PageData } from "./$types";
+
 
     export let data: PageData;
 </script>
 
-<strong>글 목록 ({data.posts.size})</strong>
+<strong>{$page.params.page} 페이지 (#{$page.params.tag})</strong>
 {#each data.posts.data as writes}
 <Post
     href={`${base}/post/${writes.name}`}
@@ -17,4 +19,4 @@
     tags={writes.metadata.tags.split(", ")}
     date={writes.metadata.date} />
 {/each}
-<Pagination pages={Math.ceil(data.posts.size / 10)} current={1} path={`${base}/pages`}  />
+<Pagination pages={Math.ceil(data.posts.size / 10)} current={Number.parseInt($page.params.page)} path={`${base}/tag/${$page.params.tag}`}  />

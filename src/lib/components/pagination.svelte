@@ -1,6 +1,6 @@
 <script lang="ts">
     import PaginationDots from "./paginationDots.svelte";
-import PaginationItem from "./paginationItem.svelte";
+    import PaginationItem from "./paginationItem.svelte";
 
     const buildPageArray = () => {
         let first = current - 3;
@@ -23,18 +23,19 @@ import PaginationItem from "./paginationItem.svelte";
 
     export let pages: number;
     export let current: number;
+    export let path: string;
     const pageArray = buildPageArray();
 
 </script>
 
 <div class="pagination">
-    <PaginationItem page={1} current={current} />
+    <PaginationItem page={1} current={current} path={path} />
     {#if pageArray[0] > 2}
     <PaginationDots />
     {/if}
 
     {#each pageArray as i}
-    <PaginationItem page={i} current={current} />
+    <PaginationItem page={i} current={current} path={path} />
     {/each}
 
     {#if pageArray[pageArray.length - 1] < pages - 1}
@@ -42,7 +43,7 @@ import PaginationItem from "./paginationItem.svelte";
     {/if}
 
     {#if pages > 1}
-    <PaginationItem page={pages} current={current}/>
+    <PaginationItem page={pages} current={current} path={path} />
     {/if}
 </div>
 

@@ -4,9 +4,10 @@ import rehypeHighlight from "rehype-highlight";
 import remarkParse from "remark-parse";
 import rehypeStringify from "rehype-stringify";
 
+const pageLength = 10;
+
 // place files you want to import through the `$lib` alias in this folder.
 export async function _fetchData(page: number = 0) {
-    const pageLength = 10;
     const data = import.meta.glob('/src/writings/*.md', {
         query: "?raw",
         import: "default",
@@ -77,9 +78,50 @@ export async function _getAllTags() {
 
     const tags = sliced
         .map(v => (typeof v.data === "string") ? parseMarkdownWithMetadata(v.data) : undefined)
-        .map(v => (v !== undefined) ? v.metadata.tags.split(", ") : undefined);
+        .map(v => (v !== undefined) ? v.metadata.tags.split(", ") : []);
 
-    return [...new Set(tags.flat())].filter((v): v is string => v !== undefined);
+    return [...new Set(tags.flat())];
+}
+
+export async function _fetchTagData(tag: string, page: number = 0) {
+    const data = import.meta.glob("/src/writings/*.md", {
+        query: "?raw",
+        import: "default",
+    });
+
+    const list = Object.keys(data)
+        .map(k => ({name: k, data: data[k]}))
+        .sort((a, b) => a.name < b.name ? 1 : -1);
+
+    const sliced = await Promise.all(list
+        .map(async l => ({
+            name: l.name, data: await l.data()
+        }))
+    );
+
+    const parsed = sliced.map(d => {
+        if (typeof d.data === "string") {
+            const markdown = parseMarkdownWithMetadata(d.data);
+            return {
+                metadata: markdown.metadata,
+                data: markdown.data.slice(0, 120),
+                name: splitNameOnly(d.name)
+            }
+        }
+        else {
+            return {
+                metadata: {},
+                data: "",
+                name: splitNameOnly(d.name)
+            }
+        }
+    })
+    .filter(v => v.metadata.tags?.split(', ').includes(tag));
+
+    return {
+        size: parsed.length,
+        data: parsed.slice(page * pageLength, page * pageLength + pageLength)
+    };
 }
 
 function parseMarkdownWithMetadata(data: string) {

@@ -1,8 +1,8 @@
-import { _fetchData } from "$lib";
+import { _fetchData, _fetchTagData } from "$lib";
 import type { PageLoad } from "./$types";
 
 export const load: PageLoad = async ({ params }) => {
     return {
-        posts: await _fetchData(Number.parseInt(params.id) - 1)
+        posts: await _fetchTagData(params.tag)
     }
 }
