@@ -54,6 +54,14 @@
         width: 100%;
         height: 100%;
     }
+    header {
+        margin-left: -24px;
+        margin-right: -24px;
+        margin-bottom: 12px;
+        padding-left: 12px;
+        padding-right: 12px;
+        background-color: #fffa;
+    }
     footer {
         margin-left: -24px;
         margin-right: -24px;
