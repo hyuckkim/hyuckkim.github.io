@@ -1,3 +1,7 @@
+<svelte:head>
+    <title>{data.title} - 블로그</title>
+</svelte:head>
+
 <script lang="ts">
     import ParsedMarkdown from "$lib/components/parsedMarkdown.svelte";
     import PostTag from "$lib/components/postTag.svelte";

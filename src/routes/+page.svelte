@@ -1,3 +1,7 @@
+<svelte:head>
+    <title>블로그</title>
+</svelte:head>
+
 <script lang="ts">
     import { base } from "$app/paths";
     import { _fetchData } from "$lib";

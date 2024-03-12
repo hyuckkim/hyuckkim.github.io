@@ -1,3 +1,7 @@
+<svelte:head>
+    <title>태그 - 블로그</title>
+</svelte:head>
+
 <script lang="ts">
     import PostTag from "$lib/components/postTag.svelte";
     import type { PageData } from "./$types";

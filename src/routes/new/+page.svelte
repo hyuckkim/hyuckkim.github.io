@@ -1,3 +1,7 @@
+<svelte:head>
+    <title>글쓰기 - 블로그</title>
+</svelte:head>
+
 <script lang="ts">
     import { _fetchData } from "$lib";
     import Markdown from "$lib/components/markdown.svelte";

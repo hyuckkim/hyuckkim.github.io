@@ -1,3 +1,7 @@
+<svelte:head>
+    <title>#{$page.params.tag} - 블로그</title>
+</svelte:head>
+
 <script lang="ts">
     import { base } from "$app/paths";
     import { page } from "$app/stores";
