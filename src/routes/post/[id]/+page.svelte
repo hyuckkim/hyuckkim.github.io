@@ -1,14 +1,23 @@
 <script lang="ts">
     import ParsedMarkdown from "$lib/components/parsedMarkdown.svelte";
+    import PostTag from "$lib/components/postTag.svelte";
+
     import type { PageData } from "./$types";
 
     export let data: PageData;
 </script>
 
-<section class="top">
-    <h1>{data.title}</h1>
-    <p>{data.date}</p>
-</section>
+<hgroup>
+    <section class="top">
+        <h1>{data.title}</h1>
+        <p>{data.date}</p>
+    </section>
+    <div>
+        {#each data.tags as tag}
+        <PostTag tag={tag}/>
+        {/each}
+    </div>
+</hgroup>
 <ParsedMarkdown data={data.content}/>
 <style>
     .top {
