@@ -156,7 +156,7 @@ function separateMetadata(document: string): {
 
     return {
         metadata: metadatas,
-        body: splitted[2],
+        body: splitted.slice(2).join('---\n'),
     }
 }
 
