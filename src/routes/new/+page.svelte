@@ -1,10 +1,20 @@
 <script lang="ts">
     import Markdown from '$lib/components/markdown.svelte';
     import { Check } from 'lucide-svelte';
+    import type { PageData } from './$types';
+    import SelectableTag from './components/selectableTag.svelte';
 
     $: isPreview = false;
+
+    export let data: PageData;
+
     let title = '';
     let tags = '';
+    $: lastTag = tags.split(', ').reverse()[0];
+    $: tagsThatStartWithLastTag = (data?.tags ?? [])
+        .filter((v) => v.startsWith(lastTag))
+        .sort((a, b) => a.length - b.length);
+
     let post = '';
     let area: HTMLTextAreaElement;
 
@@ -35,21 +45,38 @@
         }, 3000);
     };
 
+    const appendTag = (tag: string) =>
+        (tags = [...tags.split(', ').reverse().slice(1).reverse(), tag].join(', '));
+
+    const keyInput = (ev: KeyboardEvent, key: string, attr: ('ctrl' | 'shift' | 'alt')[] = []) => {
+        if (attr.includes('ctrl') && !ev.ctrlKey) return false;
+        if (attr.includes('shift') && !ev.shiftKey) return false;
+        if (attr.includes('alt') && !ev.altKey) return false;
+
+        if (ev.key !== key) return false;
+        return true;
+    };
+
+    const handleTag = (e: KeyboardEvent) => {
+        if (keyInput(e, '1', ['alt'])) {
+            appendTag(tagsThatStartWithLastTag[0]);
+        }
+        if (keyInput(e, '2', ['alt'])) {
+            appendTag(tagsThatStartWithLastTag[1]);
+        }
+        if (keyInput(e, '3', ['alt'])) {
+            appendTag(tagsThatStartWithLastTag[2]);
+        }
+        if (keyInput(e, '4', ['alt'])) {
+            appendTag(tagsThatStartWithLastTag[3]);
+        }
+        if (keyInput(e, '5', ['alt'])) {
+            appendTag(tagsThatStartWithLastTag[4]);
+        }
+    };
+
     const handleShortcut = (e: KeyboardEvent) => {
-        const keyInput = (
-            key: string,
-            attr: ('ctrl' | 'shift' | 'alt')[] = [],
-            ev: KeyboardEvent = e
-        ) => {
-            if (attr.includes('ctrl') && !ev.ctrlKey) return false;
-            if (attr.includes('shift') && !ev.shiftKey) return false;
-            if (attr.includes('alt') && !ev.altKey) return false;
-
-            if (e.key !== key) return false;
-            return true;
-        };
-
-        if (keyInput('Tab')) {
+        if (keyInput(e, 'Tab')) {
             const tabText = '    ';
             const ln = (idx: number) => (post.slice(0, idx).match(/\n/g) || []).length;
             const startPos = area.selectionStart,
@@ -99,17 +126,17 @@
                 }
             }
         }
-        if (keyInput('s', ['ctrl'])) {
+        if (keyInput(e, 's', ['ctrl'])) {
             doSubmit();
             e.preventDefault();
         }
 
-        if (keyInput('.', ['ctrl'])) {
+        if (keyInput(e, '.', ['ctrl'])) {
             isPreview = true;
 
             setTimeout(() => {
                 const event = (e: KeyboardEvent) => {
-                    if (keyInput('.', ['ctrl'], e)) {
+                    if (keyInput(e, '.', ['ctrl'])) {
                         isPreview = false;
                         window.removeEventListener('keydown', event);
                         setTimeout(() => {
@@ -141,7 +168,14 @@
         {/if}
     </button>
 </fieldset>
-<input placeholder="태그" bind:value={tags} />
+<input placeholder="태그" bind:value={tags} on:keydown={handleTag} />
+{#if !!tagsThatStartWithLastTag}
+    <div role="list" class="searchTags">
+        {#each tagsThatStartWithLastTag.slice(0, 5) as tag}
+            <SelectableTag {tag} onClick={() => appendTag(tag)} />
+        {/each}
+    </div>
+{/if}
 <div role="group">
     <button class={isPreview ? 'secondary' : ''} on:click={() => (isPreview = false)}
         >마크다운</button
@@ -185,5 +219,11 @@
         100% {
             transform: rotate(360deg);
         }
+    }
+
+    .searchTags {
+        height: 31px;
+        margin-bottom: 12px;
+        overflow: hidden;
     }
 </style>
