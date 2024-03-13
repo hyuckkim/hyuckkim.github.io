@@ -17,6 +17,7 @@
 
     let post = '';
     let area: HTMLTextAreaElement;
+    let areaDummy: HTMLDivElement;
 
     let saved = false;
 
@@ -130,9 +131,9 @@
             doSubmit();
             e.preventDefault();
         }
-
         if (keyInput(e, '.', ['ctrl'])) {
             isPreview = true;
+            e.preventDefault();
 
             setTimeout(() => {
                 const event = (e: KeyboardEvent) => {
@@ -146,6 +147,19 @@
                 };
                 window.addEventListener('keydown', event);
             }, 0);
+        }
+        if (keyInput(e, 'Escape')) {
+            e.preventDefault();
+            areaDummy.tabIndex = 0;
+            areaDummy.focus();
+            area.tabIndex = -1;
+
+            const handleBlur = () => {
+                areaDummy.tabIndex = -1;
+                area.tabIndex = 0;
+                areaDummy.removeEventListener('blur', handleBlur);
+            };
+            areaDummy.addEventListener('blur', handleBlur);
         }
     };
 </script>
@@ -188,6 +202,7 @@
     <Markdown data={post} />
 {:else}
     <textarea bind:this={area} bind:value={post} on:keydown={handleShortcut} />
+    <div bind:this={areaDummy} />
 {/if}
 
 <style>
