@@ -5,6 +5,7 @@
     import Editor from './components/editor.svelte';
     import { keyInput } from './utils';
     import TagSelector from './components/tagSelector.svelte';
+    import { saveFile } from '$lib/tauri';
 
     $: isPreview = false;
 
@@ -35,7 +36,12 @@
 
     const doSubmit = () => {
         const result = getStr();
-        navigator.clipboard.writeText(result);
+        if (data.is_tauri) {
+            saveFile(result);
+        }
+        else {
+            navigator.clipboard.writeText(result);
+        }
 
         if (saved !== -1) {
             clearTimeout(saved);
@@ -71,13 +77,17 @@
 <!-- svelte-ignore a11y-no-redundant-roles -->
 <fieldset role="group">
     <input placeholder="제목" bind:value={title} />
-    <button value="복사" on:click={doSubmit} disabled={!title || !tags || !post}>
+    <button on:click={doSubmit} disabled={!title || !tags || !post}>
         {#if saved !== -1}
             <div class="spin">
                 <Check size="22" />
             </div>
         {:else}
+            {#if data.is_tauri}
+            저장
+            {:else}
             복사
+            {/if}
         {/if}
     </button>
 </fieldset>
