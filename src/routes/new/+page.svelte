@@ -38,8 +38,7 @@
         const result = getStr();
         if (data.is_tauri) {
             saveFile(result);
-        }
-        else {
+        } else {
             navigator.clipboard.writeText(result);
         }
 
@@ -82,12 +81,10 @@
             <div class="spin">
                 <Check size="22" />
             </div>
-        {:else}
-            {#if data.is_tauri}
+        {:else if data.is_tauri}
             저장
-            {:else}
+        {:else}
             복사
-            {/if}
         {/if}
     </button>
 </fieldset>
