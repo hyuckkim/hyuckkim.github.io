@@ -48,10 +48,14 @@
                         onFocus(i) && l.startsWith(tabText) ? l.slice(tabText.length) : l
                     )
                     .join('\n');
+
                 setTimeout(() => {
                     area.setSelectionRange(
                         startPos - (firsthasTab ? tabText.length : 0),
-                        endPos - hasTabLength * (endLn - startLn + 1)
+                        (ln(endPos - hasTabLength * tabText.length) === endLn
+                            ? endPos
+                            : splitted.slice(0, endLn).join('\n').length + tabText.length + 1) -
+                            hasTabLength * tabText.length
                     );
                 }, 0);
             };
