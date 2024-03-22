@@ -6,6 +6,7 @@
     import { keyInput } from './utils';
     import TagSelector from './components/tagSelector.svelte';
     import { saveFile } from '$lib/tauri';
+    import { onMount } from 'svelte';
 
     $: isPreview = false;
 
@@ -15,7 +16,7 @@
     let tags = '';
     let post = '';
 
-    let saved = -1;
+    let saved: -1 | number = -1;
 
     const getDay = () => {
         const today = new Date();
@@ -50,22 +51,15 @@
         }, 2000);
     };
 
-    const handlePreviewShortcut = (area: HTMLElement) => {
-        isPreview = true;
+    const doChangeFocus = (e: KeyboardEvent) => {
+        if (keyInput(e, '.', ['ctrl'])) {
+            isPreview = !isPreview;
+        }
+    }
 
-        setTimeout(() => {
-            const event = (e: KeyboardEvent) => {
-                if (keyInput(e, '.', ['ctrl'])) {
-                    isPreview = false;
-                    window.removeEventListener('keydown', event);
-                    setTimeout(() => {
-                        if (area) area.focus();
-                    }, 0);
-                }
-            };
-            window.addEventListener('keydown', event);
-        }, 0);
-    };
+    onMount(() => {
+        window.addEventListener('keydown', doChangeFocus);
+    })
 </script>
 
 <svelte:head>
@@ -100,7 +94,7 @@
 {#if isPreview}
     <Markdown data={post} />
 {:else}
-    <Editor bind:post doSave={doSubmit} seePreview={handlePreviewShortcut} />
+    <Editor bind:post doSave={doSubmit} />
 {/if}
 
 <style>

@@ -8,7 +8,6 @@
 
     export let post: string;
     export let doSave: () => void;
-    export let seePreview: (area: HTMLElement) => void;
 
     const handleShortcut = (e: KeyboardEvent) => {
         if (keyInput(e, 'Tab')) {
@@ -72,10 +71,6 @@
         }
         if (keyInput(e, 's', ['ctrl'])) {
             doSave();
-            e.preventDefault();
-        }
-        if (keyInput(e, '.', ['ctrl'])) {
-            seePreview(area);
             e.preventDefault();
         }
         if (keyInput(e, 'Escape')) {
