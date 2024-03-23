@@ -5,3 +5,6 @@ yarn.lock
 
 #ignore prettier
 /src-tauri/target
+
+#ignore post
+/src/writings

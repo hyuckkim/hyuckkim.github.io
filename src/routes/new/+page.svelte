@@ -5,8 +5,9 @@
     import Editor from './components/editor.svelte';
     import { keyInput } from './utils';
     import TagSelector from './components/tagSelector.svelte';
-    import { saveFile } from '$lib/tauri';
+    import { loadFile, saveFile } from '$lib/tauri';
     import { onMount } from 'svelte';
+    import { parseMarkdownWithMetadata } from '$lib';
 
     $: isPreview = false;
 
@@ -17,6 +18,7 @@
     let post = '';
 
     let saved: -1 | number = -1;
+    let loaded: -1 | number = -1;
 
     const getDay = () => {
         const today = new Date();
@@ -35,10 +37,10 @@
         '---\n' +
         `${post}`;
 
-    const doSubmit = () => {
+    const doSubmit = async () => {
         const result = getStr();
         if (data.is_tauri) {
-            saveFile(result);
+            await saveFile(result);
         } else {
             navigator.clipboard.writeText(result);
         }
@@ -51,15 +53,34 @@
         }, 2000);
     };
 
+    const doLoad = async () => {
+        if (!data.is_tauri) return;
+        const text = await loadFile();
+        if (!text) return;
+
+        const parsed = parseMarkdownWithMetadata(text);
+
+        title = parsed.metadata.title;
+        tags = parsed.metadata.tags;
+        post = parsed.data;
+
+        if (loaded !== -1) {
+            clearTimeout(loaded);
+        }
+        loaded = setTimeout(() => {
+            loaded = -1;
+        }, 2000);
+    };
+
     const doChangeFocus = (e: KeyboardEvent) => {
         if (keyInput(e, '.', ['ctrl'])) {
             isPreview = !isPreview;
         }
-    }
+    };
 
     onMount(() => {
         window.addEventListener('keydown', doChangeFocus);
-    })
+    });
 </script>
 
 <svelte:head>
@@ -69,7 +90,18 @@
 <small>(뭔가 시도하려다 포기한 흔적)</small>
 <!-- svelte-ignore a11y-no-redundant-roles -->
 <fieldset role="group">
-    <input placeholder="제목" bind:value={title} />
+    <input placeholder="제목" bind:value={title} class:tauri={data.is_tauri} />
+    {#if data.is_tauri}
+        <button on:click={doLoad}>
+            {#if loaded !== -1}
+                <div class="spin">
+                    <Check size="22" />
+                </div>
+            {:else}
+                열기
+            {/if}
+        </button>
+    {/if}
     <button on:click={doSubmit} disabled={!title || !tags || !post}>
         {#if saved !== -1}
             <div class="spin">
@@ -104,6 +136,9 @@
     }
     fieldset input {
         flex: 11;
+    }
+    fieldset input.tauri {
+        flex: 22;
     }
     fieldset button {
         text-wrap: nowrap;

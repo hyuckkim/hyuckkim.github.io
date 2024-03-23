@@ -124,7 +124,7 @@ export async function _fetchTagData(tag: string, page: number = 0) {
     };
 }
 
-function parseMarkdownWithMetadata(data: string) {
+export function parseMarkdownWithMetadata(data: string) {
     const { metadata, body } = separateMetadata(data);
 
     return {

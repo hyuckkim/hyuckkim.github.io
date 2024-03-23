@@ -14,11 +14,13 @@
         "allowlist": {
             "all": false,
             "dialog": {
-                "save": true
+                "save": true,
+                "open": true
             },
             "fs": {
                 "all": false,
-                "writeFile": true
+                "writeFile": true,
+                "readFile": true
             }
         },
         "bundle": {
