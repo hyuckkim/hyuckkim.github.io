@@ -3,6 +3,7 @@ import remarkRehype from 'remark-rehype';
 import rehypeHighlight from 'rehype-highlight';
 import remarkParse from 'remark-parse';
 import rehypeStringify from 'rehype-stringify';
+import { writable } from 'svelte/store';
 
 const pageLength = 10;
 
@@ -170,4 +171,12 @@ export async function _buildMarkdown(data: string): Promise<string> {
             .use(rehypeHighlight)
             .process(data)
     ).toString();
+}
+
+export function _localStorageStore(key: string, initial: object) {
+    const value = localStorage.getItem(key);
+    const store = writable(value == null ? initial : JSON.parse(value));
+    store.subscribe((v) => localStorage.setItem(key, JSON.stringify(v)));
+
+    return store;
 }

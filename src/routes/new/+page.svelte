@@ -7,7 +7,7 @@
     import TagSelector from './components/tagSelector.svelte';
     import { loadFile, saveFile } from '$lib/tauri';
     import { onMount } from 'svelte';
-    import { parseMarkdownWithMetadata } from '$lib';
+    import { _localStorageStore, parseMarkdownWithMetadata } from '$lib';
 
     $: isPreview = false;
 
@@ -19,6 +19,43 @@
 
     let saved: -1 | number = -1;
     let loaded: -1 | number = -1;
+
+    let draft = {};
+    onMount(() => {
+        let _draft = _localStorageStore('draft', {});
+        _draft.subscribe((v) => {
+            draft = v;
+        });
+        setInterval(() => {
+            if (post === '') return;
+            _draft.update(() => ({
+                title: title,
+                tags: tags,
+                date: getDay(),
+                post: post
+            }));
+        }, 60000);
+    });
+    const loadDraft = () => {
+        if (!isValidDraft(draft)) return;
+
+        title = draft.title;
+        tags = draft.tags;
+        post = draft.post;
+    };
+    const isValidDraft = (
+        draft: object
+    ): draft is {
+        title: string;
+        tags: string;
+        post: string;
+    } =>
+        'title' in draft &&
+        'tags' in draft &&
+        'post' in draft &&
+        typeof draft.title === 'string' &&
+        typeof draft.tags === 'string' &&
+        typeof draft.post === 'string';
 
     const getDay = () => {
         const today = new Date();
@@ -87,7 +124,6 @@
     <title>글쓰기 - 블로그</title>
 </svelte:head>
 
-<small>(뭔가 시도하려다 포기한 흔적)</small>
 <!-- svelte-ignore a11y-no-redundant-roles -->
 <fieldset role="group">
     <input placeholder="제목" bind:value={title} class:tauri={data.is_tauri} />
@@ -114,6 +150,11 @@
         {/if}
     </button>
 </fieldset>
+{#if 'date' in draft}
+    <button class="small secondary" on:click={loadDraft}>임시 저장 ({draft.date})</button>
+{:else}
+    <button class="small secondary" disabled>임시 저장</button>
+{/if}
 <TagSelector bind:tags dataTags={data.tags ?? []} />
 <div role="group">
     <button class={isPreview ? 'secondary' : ''} on:click={() => (isPreview = false)}
@@ -130,9 +171,8 @@
 {/if}
 
 <style>
-    small {
-        font-style: italic;
-        color: gray;
+    fieldset {
+        margin: 0;
     }
     fieldset input {
         flex: 11;
@@ -143,6 +183,12 @@
     fieldset button {
         text-wrap: nowrap;
         flex: 1;
+    }
+    button.small {
+        font-size: small;
+        padding: 4px;
+        margin-bottom: 12px;
+        align-self: self-end;
     }
     .spin {
         animation: spin 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
