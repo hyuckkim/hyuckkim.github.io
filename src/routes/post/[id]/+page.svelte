@@ -16,10 +16,13 @@
         <h1>{data.title}</h1>
         <p>{data.date}</p>
     </section>
-    <div>
-        {#each data.tags as tag}
-            <PostTag {tag} />
-        {/each}
+    <div class="secondLine">
+        <div>
+            {#each data.tags as tag}
+                <PostTag {tag} />
+            {/each}
+        </div>
+        <a href={`/post/${data.index}`}>#</a>
     </div>
 </hgroup>
 <ParsedMarkdown data={data.content} />
@@ -32,5 +35,9 @@
     }
     .top p {
         text-wrap: nowrap;
+    }
+    .secondLine {
+        display: flex;
+        justify-content: space-between;
     }
 </style>
