@@ -34,11 +34,8 @@
     "type": "module",
     "dependencies": {
         "@tauri-apps/api": "^1.5.3",
-        "lucide-svelte": "^0.356.0",
-        "rehype-highlight": "^7.0.0",
-        "rehype-stringify": "^10.0.0",
-        "remark-parse": "^11.0.0",
-        "remark-rehype": "^11.1.0",
-        "unified": "^11.0.4"
+        "@types/showdown": "^2.0.6",
+        "showdown": "^2.1.0",
+        "showdown-highlight": "^3.1.0"
     }
 }

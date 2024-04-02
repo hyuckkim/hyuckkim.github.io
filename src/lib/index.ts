@@ -1,8 +1,5 @@
-import { unified } from 'unified';
-import remarkRehype from 'remark-rehype';
-import rehypeHighlight from 'rehype-highlight';
-import remarkParse from 'remark-parse';
-import rehypeStringify from 'rehype-stringify';
+import Showdown from 'showdown';
+import showdownHighlight from 'showdown-highlight';
 import { writable } from 'svelte/store';
 
 const pageLength = 10;
@@ -136,14 +133,15 @@ function separateMetadata(document: string): {
 }
 
 export async function _buildMarkdown(data: string): Promise<string> {
-    return (
-        await unified()
-            .use(remarkParse)
-            .use(remarkRehype, { allowDangerousHtml: true })
-            .use(rehypeStringify, { allowDangerousHtml: true })
-            .use(rehypeHighlight)
-            .process(data)
-    ).toString();
+    const converter = new Showdown.Converter({
+        extensions: [
+            showdownHighlight({
+                pre: true,
+                auto_detection: true
+            })
+        ]
+    });
+    return converter.makeHtml(data);
 }
 
 export function _localStorageStore(key: string, initial: object) {

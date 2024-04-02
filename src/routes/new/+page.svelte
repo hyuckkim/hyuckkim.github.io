@@ -1,6 +1,5 @@
 <script lang="ts">
     import Markdown from '$lib/components/markdown.svelte';
-    import { Check } from 'lucide-svelte';
     import type { PageData } from './$types';
     import Editor from './components/editor.svelte';
     import { keyInput } from './utils';
@@ -8,6 +7,7 @@
     import { loadFile, saveFile } from '$lib/tauri';
     import { onMount } from 'svelte';
     import { _localStorageStore, parseMarkdownWithMetadata } from '$lib';
+    import Check from './components/check.svelte';
 
     $: isPreview = false;
 
@@ -130,9 +130,7 @@
     {#if data.is_tauri}
         <button on:click={doLoad}>
             {#if loaded !== -1}
-                <div class="spin">
-                    <Check size="22" />
-                </div>
+                <Check size={22} />
             {:else}
                 열기
             {/if}
@@ -141,7 +139,7 @@
     <button on:click={doSubmit} disabled={!title || !tags || !post}>
         {#if saved !== -1}
             <div class="spin">
-                <Check size="22" />
+                <Check size={22} />
             </div>
         {:else if data.is_tauri}
             저장
