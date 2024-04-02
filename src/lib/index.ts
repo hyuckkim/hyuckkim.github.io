@@ -23,73 +23,78 @@ let data: {
 async function loadData() {
     if (data.length !== 0) return;
 
-    const loaded = await Promise.all(Object.keys(files)
-    .map((k) => ({ name: k, data: files[k] }))
-    .map(async (l) => ({
-        name: l.name,
-        data: await l.data()
-    })));
+    const loaded = await Promise.all(
+        Object.keys(files)
+            .map((k) => ({ name: k, data: files[k] }))
+            .map(async (l) => ({
+                name: l.name,
+                data: await l.data()
+            }))
+    );
 
-    data = loaded.map((d) => {
-        if (typeof d.data === 'string') {
-            const markdown = parseMarkdownWithMetadata(d.data);
-            return {
-                metadata: markdown.metadata,
-                data: markdown.data,
-                name: splitNameOnly(d.name)
-            };
-        } else {
-            return {
-                metadata: {},
-                data: '',
-                name: splitNameOnly(d.name)
-            };
-        }
-    })
-    .sort((f1, f2) => f1.metadata["date"] > f2.metadata["date"] ? 1 : -1)
-    .map((d, i) => ({...d, index: i + 1}));
+    data = loaded
+        .map((d) => {
+            if (typeof d.data === 'string') {
+                const markdown = parseMarkdownWithMetadata(d.data);
+                return {
+                    metadata: markdown.metadata,
+                    data: markdown.data,
+                    name: splitNameOnly(d.name)
+                };
+            } else {
+                return {
+                    metadata: {},
+                    data: '',
+                    name: splitNameOnly(d.name)
+                };
+            }
+        })
+        .sort((f1, f2) => (f1.metadata['date'] > f2.metadata['date'] ? 1 : -1))
+        .map((d, i) => ({ ...d, index: i + 1 }));
 }
 
 export async function _fetchData(page: number = 0) {
     await loadData();
     return {
         size: data.length,
-        data: [...data].reverse().slice(page * pageLength, page * pageLength + pageLength).map(d => ({...d, data: d.data.slice(0, 120)}))
-        // 최근 데이터부터 보여주기, pageLength개 만큼만 보여주도록 자르기, 썸네일에 필요한 정도의 글만 잘라오기
+        data: [...data]
+            .reverse() // 최근 데이터부터 보여주기
+            .slice(page * pageLength, page * pageLength + pageLength) // pageLength개 만큼만 보여주도록 자르기
+            .map((d) => ({ ...d, data: d.data.slice(0, 120) })) // 썸네일에 필요한 정도의 글만 잘라오기
     };
 }
 
 export async function _getData(name: string) {
     await loadData();
-    let found = data.filter(d => d.name === name)[0]; // 이름으로 접근 시도
+    let found = data.filter((d) => d.name === name)[0]; // 이름으로 접근 시도
     const docNo = Number.parseInt(name) - 1; // 글 번호는 1번부터 시작
-    if (!found && !isNaN(docNo)) { // 번호로 접근 시도
+    if (!found && !isNaN(docNo)) {
+        // 번호로 접근 시도
         found = data[docNo];
     }
 
-    if (!found) throw Error("Not found");
+    if (!found) throw Error('Not found');
 
     return found;
 }
 
 export async function _getAllTags() {
     await loadData();
-    const tags = data
-        .map((v) => v.metadata.tags.split(', '))
-        .flat();
+    const tags = data.map((v) => v.metadata.tags.split(', ')).flat();
 
     return [...new Set(tags)];
 }
 
 export async function _fetchTagData(tag: string, page: number = 0) {
     await loadData();
-    const documents = data
-        .filter((v) => v.metadata.tags?.split(', ').includes(tag));
+    const documents = data.filter((v) => v.metadata.tags?.split(', ').includes(tag));
 
     return {
         size: documents.length,
-        data: [...documents].reverse().slice(page * pageLength, page * pageLength + pageLength).map(d => ({...d, data: d.data.slice(0, 120)}))
-        // 최근 데이터부터 보여주기, pageLength개 만큼만 보여주도록 자르기, 썸네일에 필요한 정도의 글만 잘라오기
+        data: [...documents]
+            .reverse() // 최근 데이터부터 보여주기
+            .slice(page * pageLength, page * pageLength + pageLength) // pageLength개 만큼만 보여주도록 자르기
+            .map((d) => ({ ...d, data: d.data.slice(0, 120) })) // 썸네일에 필요한 정도의 글만 잘라오기
     };
 }
 

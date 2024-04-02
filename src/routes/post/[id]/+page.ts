@@ -9,6 +9,6 @@ export const load: PageLoad = async ({ params }) => {
         date: data.metadata.date,
         tags: data.metadata.tags.split(', '),
         content: await _buildMarkdown(data.data),
-        index: data.index,
+        index: data.index
     };
 };
