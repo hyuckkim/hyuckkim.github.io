@@ -54,7 +54,7 @@ export async function _fetchData(page: number = 0) {
     await loadData();
     return {
         size: data.length,
-        data: data.toReversed().slice(page * pageLength, page * pageLength + pageLength).map(d => ({...d, data: d.data.slice(0, 120)}))
+        data: [...data].reverse().slice(page * pageLength, page * pageLength + pageLength).map(d => ({...d, data: d.data.slice(0, 120)}))
         // 최근 데이터부터 보여주기, pageLength개 만큼만 보여주도록 자르기, 썸네일에 필요한 정도의 글만 잘라오기
     };
 }
@@ -88,7 +88,7 @@ export async function _fetchTagData(tag: string, page: number = 0) {
 
     return {
         size: documents.length,
-        data: documents.toReversed().slice(page * pageLength, page * pageLength + pageLength).map(d => ({...d, data: d.data.slice(0, 120)}))
+        data: [...documents].reverse().slice(page * pageLength, page * pageLength + pageLength).map(d => ({...d, data: d.data.slice(0, 120)}))
         // 최근 데이터부터 보여주기, pageLength개 만큼만 보여주도록 자르기, 썸네일에 필요한 정도의 글만 잘라오기
     };
 }
