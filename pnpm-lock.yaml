@@ -11,6 +11,9 @@ dependencies:
   '@types/showdown':
     specifier: ^2.0.6
     version: 2.0.6
+  regexp-misc:
+    specifier: ^1.1.0
+    version: 1.1.0
   showdown:
     specifier: ^2.1.0
     version: 2.1.0
@@ -1875,6 +1878,10 @@ packages:
 
   /regex-escape@3.4.10:
     resolution: {integrity: sha512-qEqf7uzW+iYcKNLMDFnMkghhQBnGdivT6KqVQyKsyjSWnoFyooXVnxrw9dtv3AFLnD6VBGXxtZGAQNFGFTnCqA==}
+    dev: false
+
+  /regexp-misc@1.1.0:
+    resolution: {integrity: sha512-gGzuAmaylo3qY9YbWEGv1KBceaKIrT8otvJxROednqdXMkRqiVaude31N+V5IzbO/VCgahx6ItvTnuKZGcQ4AA==}
     dev: false
 
   /resolve-from@4.0.0:

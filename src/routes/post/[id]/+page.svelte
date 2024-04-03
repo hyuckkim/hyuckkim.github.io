@@ -1,10 +1,14 @@
 <script lang="ts">
     import ParsedMarkdown from '$lib/components/parsedMarkdown.svelte';
     import PostTag from '$lib/components/postTag.svelte';
+    import { getAllRegexp } from 'regexp-misc';
 
     import type { PageData } from './$types';
+    import SubtitleMenu from './components/subtitleMenu.svelte';
 
     export let data: PageData;
+    $: subtitles = getAllRegexp(data.content, /<h([1-6]) id="(.+)"><a.+\/a>(.+)<\/h[1-6]>/g)
+        .map(d => ({level: d[1], id: d[2], text: d[3]}));
 </script>
 
 <svelte:head>
@@ -25,6 +29,7 @@
         <a href={`/post/${data.index}`}>#</a>
     </div>
 </hgroup>
+<SubtitleMenu {subtitles} />
 <ParsedMarkdown data={data.content} />
 
 <style>

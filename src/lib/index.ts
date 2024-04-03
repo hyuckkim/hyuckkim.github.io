@@ -134,16 +134,25 @@ function separateMetadata(document: string): {
 
 export async function _buildMarkdown(data: string): Promise<string> {
     const converter = new Showdown.Converter({
+        rawHeaderId: true,
         extensions: [
             showdownHighlight({
                 pre: true,
                 auto_detection: true
-            })
+            }),
+            insertAtoHeader('#'),
         ]
     });
     return converter.makeHtml(data);
 }
 
+function insertAtoHeader(sign: string) {
+    return {
+        type: 'output',
+        regex: /(<h([1-6]) id="(.+)">)(.+)(<\/h[1-6]>)/g,
+        replace: `$1<a href="#$3">${sign}</a> $4$5`
+    };
+}
 export function _localStorageStore(key: string, initial: object) {
     const value = localStorage.getItem(key);
     const store = writable(value == null ? initial : JSON.parse(value));
