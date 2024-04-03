@@ -8,7 +8,7 @@
 
 <style>
     small {
-        background-color: #ddd;
+        background-color: var(--pico-muted-border-color);
         padding: 2px 6px;
         margin-right: 8px;
     }

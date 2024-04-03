@@ -10,7 +10,7 @@
 
 <style>
     span {
-        color: #2e2e2e;
+        color: var(--pico-contrast);
         border: 0;
         padding: 0;
         border-radius: 0;
@@ -19,7 +19,7 @@
     }
 
     small {
-        background-color: #ddd;
+        background-color: var(--pico-muted-border-color);
         padding: 4px 6px;
     }
 </style>

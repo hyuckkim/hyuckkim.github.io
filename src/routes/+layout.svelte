@@ -37,10 +37,11 @@
 
 <style>
     :root {
-        background-color: #555555;
+        background-color: var(--pico-muted-color);
     }
     .root {
-        background-color: #ffffffaa;
+        --alpha: 0.8;
+        background-color: color-mix(in srgb, var(--pico-background-color), transparent 20%);
         min-height: 100vh;
         margin: 0 auto;
         padding: 0 24px 6px;
@@ -60,7 +61,7 @@
         margin-bottom: 12px;
         padding-left: 12px;
         padding-right: 12px;
-        background-color: #fffa;
+        background-color: var(--pico-background-color);
     }
     footer {
         margin-left: -24px;
