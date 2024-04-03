@@ -7,8 +7,9 @@
     import SubtitleMenu from './components/subtitleMenu.svelte';
 
     export let data: PageData;
-    $: subtitles = getAllRegexp(data.content, /<h([1-6]) id="(.+)"><a.+\/a>(.+)<\/h[1-6]>/g)
-        .map(d => ({level: d[1], id: d[2], text: d[3]}));
+    $: subtitles = getAllRegexp(data.content, /<h([1-6]) id="(.+)"><a.+\/a>(.+)<\/h[1-6]>/g).map(
+        (d) => ({ level: d[1], id: d[2], text: d[3] })
+    );
 </script>
 
 <svelte:head>

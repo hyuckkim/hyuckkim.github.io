@@ -140,7 +140,7 @@ export async function _buildMarkdown(data: string): Promise<string> {
                 pre: true,
                 auto_detection: true
             }),
-            insertAtoHeader('#'),
+            insertAtoHeader('#')
         ]
     });
     return converter.makeHtml(data);
