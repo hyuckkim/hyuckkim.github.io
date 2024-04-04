@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { base } from '$app/paths';
     import { page } from '$app/stores';
     import Pagination from '$lib/components/pagination.svelte';
     import Post from '$lib/components/post.svelte';
@@ -16,7 +15,7 @@
 <strong>{$page.params.page} 페이지 (#{$page.params.tag})</strong>
 {#each data.posts.data as writes}
     <Post
-        href={`${base}/post/${writes.name}`}
+        href={`/post/${writes.name}`}
         title={writes.metadata.title}
         data={writes.data}
         tags={writes.metadata.tags.split(', ')}
@@ -26,5 +25,5 @@
 <Pagination
     pages={Math.ceil(data.posts.size / 10)}
     current={Number.parseInt($page.params.page)}
-    path={`${base}/tag/${$page.params.tag}`}
+    path={`/tag/${$page.params.tag}`}
 />

@@ -1,5 +1,4 @@
 <script>
-    import { base } from '$app/paths';
     import Stars from '$lib/components/stars.svelte';
     import '../app.scss';
 </script>
@@ -11,12 +10,12 @@
             <header>
                 <nav>
                     <ul>
-                        <li><a href={`${base}/`}><strong>라이브러리와 싸우는 사람</strong></a></li>
+                        <li><a href={`/`}><strong>라이브러리와 싸우는 사람</strong></a></li>
                     </ul>
                     <ul>
-                        <li><a href={`${base}/new`}>글쓰기</a></li>
-                        <li><a href={`${base}/tag`}>tag</a></li>
-                        <li><a href={`${base}/about`}>about</a></li>
+                        <li><a href={`/new`}>글쓰기</a></li>
+                        <li><a href={`/tag`}>tag</a></li>
+                        <li><a href={`/about`}>about</a></li>
                     </ul>
                 </nav>
             </header>
