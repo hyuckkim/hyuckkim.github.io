@@ -1,0 +1,21 @@
+main {
+  padding: 20px 40px;
+  margin: 20px auto;
+  max-width: 1200px;
+  justify-content: center;
+  box-sizing: border-box;
+}
+article {
+  background: #fff6;
+  border: 2px solid #999;
+  border-radius: 12px;
+  margin: 4px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 300ms;
+}
