@@ -1,5 +1,6 @@
 import type { PageServerLoad } from "./$types";
 import matter from 'gray-matter';
+export const prerender = true;
 
 export const load: PageServerLoad = async ({ fetch }) => {
   const contents = [

@@ -2,6 +2,7 @@ import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 import matter from 'gray-matter';
 import { marked } from "marked";
+export const prerender = true;
 
 export const load: PageServerLoad = async ({ params, fetch }) => {
 	const res = await fetch(`/posts/${params.title}.md`);
