@@ -70,5 +70,6 @@ button {
   background-color: #fff;
   padding: 0.4em 0.2em;
   border-radius: 4px;
+  overflow: auto;
 }
 </style>

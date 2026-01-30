@@ -5,6 +5,20 @@ main {
   justify-content: center;
   box-sizing: border-box;
 }
+
+@media screen and (max-width: 800px) {
+  main {
+    padding: 10px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  main {
+    padding: 5px;
+    margin: 10px auto;
+  }
+}
+
 article {
   background: #fff6;
   border: 2px solid #999;
