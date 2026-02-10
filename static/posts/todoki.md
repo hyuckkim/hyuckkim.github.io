@@ -10,7 +10,9 @@ SDL이나 processor 같은 지금까지 나와있는 모든 2d 엔진은 '투명
 인갤 (개발쪽) 에 매일 진척도를 쓰고 있긴 하지만 순수히 코드적인 부분을 저기 싣긴 뭐해서
 그런 부분은 여기에 쓰려고 한다.
 
-
+## 리포지토리
+[C++](https://github.com/hyuckkim/todoki)  
+[lua](https://github.com/hyuckkim/carriage)
 ## 연재글 (dcinside 인디 게임 개발 갤러리)
 [방치형 게임 만들기 1일차](https://gall.dcinside.com/game_dev/203926)
 [2일차](https://gall.dcinside.com/game_dev/203993)
