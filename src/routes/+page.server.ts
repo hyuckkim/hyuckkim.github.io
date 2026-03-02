@@ -1,22 +1,7 @@
 import type { PageServerLoad } from "./$types";
 import matter from 'gray-matter';
+import { resolvePostAssetPath } from '$lib/postMarkdown';
 export const prerender = true;
-
-const isExternalOrAbsolutePath = (value: string) => /^(?:[a-z]+:|\/\/|#|\/)/i.test(value);
-
-const resolvePostAssetPath = (slug: string, value?: string) => {
-  if (!value) {
-    return value;
-  }
-  const normalized = value.startsWith('./') ? value.slice(2) : value;
-  if (normalized.startsWith('assets/')) {
-    return `/posts/${slug}/${normalized}`;
-  }
-  if (!isExternalOrAbsolutePath(normalized)) {
-    return `/posts/${slug}/assets/${normalized}`;
-  }
-  return normalized;
-};
 
 export const load: PageServerLoad = async ({ fetch }) => {
   const contents = [
