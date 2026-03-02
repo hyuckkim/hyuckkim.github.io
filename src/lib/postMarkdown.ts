@@ -50,6 +50,7 @@ const createPostMarked = (slug: string) => {
 
 			if (token.type === 'html') {
 				token.raw = resolveAssetPathsInHtmlToken(slug, token.raw);
+				token.text = resolveAssetPathsInHtmlToken(slug, token.text);
 			}
 		}
 	});
