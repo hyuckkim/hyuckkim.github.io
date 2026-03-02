@@ -1,3 +1,10 @@
+html,
+body {
+  font-family: Inter, "Pretendard Variable", "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 main {
   padding: 20px 40px;
   margin: 20px auto;

@@ -3,6 +3,7 @@
 	import favicon from '$lib/assets/favicon.ico';
   import Star from './Star.svelte';
 	import './global.css';
+  import 'highlight.js/styles/base16/gruvbox-dark-hard.css';
 
 	let { children } = $props();
 	
