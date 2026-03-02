@@ -16,20 +16,29 @@
   </article>
 </a>
 <style>
-  
 * {
   color: #000;
   text-decoration: none;
 }
+a article {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 h3 {
-  margin: 5px;
+  margin: 5px 5px 5px 40px;
+  justify-self: start;
+  flex-grow: 1;
 }
 img {
-  max-width: 100%;
-  max-height: 200px;
+  width: 200px;
+  max-height: 100px;
   border-radius: 16px;
   padding: 8px;
   box-sizing: border-box;
   align-self: center;
+}
+a article p {
+    align-self: end;
 }
 </style>

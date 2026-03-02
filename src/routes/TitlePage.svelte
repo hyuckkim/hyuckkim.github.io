@@ -22,6 +22,7 @@
     <a class:selected={isSelected('/team-projects')} href="/team-projects">👥팀 프로젝트</a>
     <a class:selected={isSelected('/etc')} href="/etc">✨기타</a>
   </article>
+  <a href="/post" class="see-all"> → 전체 보기</a>
   <section style:view-transition-name="posts" bind:this={postElement}>
 		{#each posts as post}
 			<ProjectBlock 
@@ -58,6 +59,13 @@
 	p {
 		margin: 0;
 	}
+    .see-all {
+        display: block;
+        text-align: right;
+        margin: 16px 0;
+        color: #fff;
+        text-decoration: none;
+    }
   section {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
