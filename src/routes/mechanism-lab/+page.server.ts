@@ -5,6 +5,7 @@ export const prerender = true;
 
 export const load: PageServerLoad = async ({ fetch }) => {
   const contents = [
+    '/posts/handboxing/index.md',
     '/posts/speak/index.md',
     '/posts/phonegame/index.md',
     '/posts/plant/index.md',
