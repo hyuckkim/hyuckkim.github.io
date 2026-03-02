@@ -1,5 +1,5 @@
 <script lang="ts">
-import TitlePage from "./TitlePage.svelte";
+import TitlePage from "../TitlePage.svelte";
 
   let {data} = $props();
 </script>

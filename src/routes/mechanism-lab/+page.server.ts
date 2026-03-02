@@ -5,14 +5,13 @@ export const prerender = true;
 
 export const load: PageServerLoad = async ({ fetch }) => {
   const contents = [
-    '/posts/directdrawviewer/index.md',
-    '/posts/shrine/index.md',
-    '/posts/aiwork/index.md',
-    '/posts/dotuna/index.md',
-    '/posts/regexpmisc/index.md',
-    '/posts/modinfobuilder/index.md',
-    '/posts/pixeler/index.md',
-    '/posts/ten2two/index.md'
+    '/posts/speak/index.md',
+    '/posts/phonegame/index.md',
+    '/posts/plant/index.md',
+    '/posts/threewindow/index.md',
+    '/posts/coloring/index.md',
+    '/posts/spacegame/index.md',
+    '/posts/quadrant/index.md',
   ].map(async (path) => {
     const res = await fetch(path);
     const content = await res.text();
