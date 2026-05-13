@@ -42,14 +42,15 @@
     justify-content: space-evenly;
   }
   .categories a {
-    padding: 8px 64px;
+    padding: 8px;
     border-radius: 16px;
     color: #000;
     text-decoration: none;
   }
   .categories a.selected {
     width: max-content;
-    padding: 8px 64px;
+    flex-
+    padding: 8px;
     border-radius: 16px;
     background-color: #eee5;
   }

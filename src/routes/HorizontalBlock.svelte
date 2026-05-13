@@ -24,6 +24,7 @@ a article {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+      overflow: hidden;
 }
 h3 {
   margin: 5px 5px 5px 40px;
@@ -33,6 +34,8 @@ h3 {
 img {
   width: 200px;
   max-height: 100px;
+  max-width: 50%;
+  
   border-radius: 16px;
   padding: 8px;
   box-sizing: border-box;
@@ -40,5 +43,10 @@ img {
 }
 a article p {
     align-self: end;
+}
+@media (max-width: 540px) {
+  img {
+    display: none;
+  }
 }
 </style>

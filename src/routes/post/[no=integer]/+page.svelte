@@ -1,5 +1,5 @@
 <script lang="ts">
-    import HorizontalBlock from '../HorizontalBlock.svelte';
+    import HorizontalBlock from '../../HorizontalBlock.svelte';
 
 	export let data;
 </script>
@@ -7,7 +7,7 @@
 <main>
 	<article>
 		<h1>전체 보기</h1>
-		<p>모든 포스트</p>
+		<p>{data.no} 페이지</p>
 	</article>
 
 	<section>
@@ -21,8 +21,9 @@
 		{/each}
 	</section>
 </main>
-<a href="/post/1">이전</a>
-<a href="/post/2">다음</a>
+<a href="/post/{Math.max(1, data.no - 1)}">이전</a>
+<a href="/post/{Math.min(data.size, data.no -  - 1)}">다음</a>
+
 <style>
 	p {
 		margin: 0;
