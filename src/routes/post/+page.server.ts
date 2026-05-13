@@ -4,20 +4,15 @@ import { resolvePostAssetPath } from '$lib/postMarkdown';
 
 export const prerender = true;
 
-const getDateSortKey = (value?: string) => {
-	if (!value) return 0;
+function getDateSortKey(value) {
+    if (!value) return '';
 
-	const parts = value.match(/\d+/g);
-	if (!parts || parts.length === 0) return 0;
+    if (value instanceof Date) {
+        return value.toISOString().slice(0, 10);
+    }
 
-	const year = Number(parts[0]);
-	const month = Number(parts[1] ?? '1');
-	const day = Number(parts[2] ?? '1');
-
-	if (!Number.isFinite(year) || !Number.isFinite(month) || !Number.isFinite(day)) return 0;
-
-	return Date.UTC(year, Math.max(month - 1, 0), Math.max(day, 1));
-};
+    return String(value);
+}
 
 export const load: PageServerLoad = async () => {
 	const markdownModules = import.meta.glob('/static/posts/*/index.md', {
