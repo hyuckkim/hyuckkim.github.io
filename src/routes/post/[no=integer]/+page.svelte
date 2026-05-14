@@ -1,5 +1,6 @@
 <script lang="ts">
     import HorizontalBlock from '../../HorizontalBlock.svelte';
+  import Pagination from '../../Pagination.svelte';
 
 	export let data;
 </script>
@@ -20,9 +21,8 @@
 			/>
 		{/each}
 	</section>
+	<Pagination idx={data.no} size={data.size} />
 </main>
-<a href="/post/{Math.max(1, data.no - 1)}">이전</a>
-<a href="/post/{Math.min(data.size, data.no -  - 1)}">다음</a>
 
 <style>
 	p {

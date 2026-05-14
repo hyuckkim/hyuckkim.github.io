@@ -67,12 +67,13 @@ export const _postList = () => {
             };
 
             const dateSortKey = getDateSortKey(meta.date);
+            const stringDate = typeof meta.date === 'string' ? meta.date : meta.date?.toISOString().slice(0, 10) ?? '';
 
             return {
                 slug,
                 title: meta.title ?? slug,
                 img: resolvePostAssetPath(slug, meta.img) ?? '',
-                date: meta.date ?? '',
+                date: stringDate,
                 dateSortKey,
                 path: `/post/${slug}`
             };
@@ -84,6 +85,6 @@ export const _postList = () => {
 };
 
 export const load: PageServerLoad = async () => {
-    return { posts: _postList()
-        .slice(0, 10) };
+    const posts = _postList();
+    return { posts: posts.slice(0, 10), size: Math.ceil(posts.length / 10) };
 };

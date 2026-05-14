@@ -49,7 +49,6 @@
   }
   .categories a.selected {
     width: max-content;
-    flex-
     padding: 8px;
     border-radius: 16px;
     background-color: #eee5;
