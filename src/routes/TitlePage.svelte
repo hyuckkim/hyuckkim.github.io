@@ -33,6 +33,13 @@
 			/>
 		{/each}
   </section>
+  <h2>연결된 페이지</h2>
+  <article>
+    <a href="https://hyuckkim.github.io/Vox-Populi-Civilopedia/" target="_blank">📖 문명 Vox Populi 백과사전</a>
+    <a href="https://hyuckkim.github.io/lightuna-list/anchor" target="_blank">🦈 구 참치 어장 검색기</a>
+    <a href="https://hyuckkim.github.io/aiwork/tester.html" target="_blank">🤖 js 실행기</a>
+    <a href="https://hyuckkim.github.io/aiwork/editor.html" target="_blank">📝 모바일 바이브코딩용 에디터</a>
+  </article>
 </main>
 
 <style>
@@ -81,5 +88,15 @@
     section {
       grid-template-columns: 1fr;
     }
+  }
+
+  article a {
+    display: inline-block;
+    padding: 0.5em 1em;
+    background-color: #fff6;
+    color: #333;
+    text-decoration: none;
+    border-radius: 8px;
+    margin: 0.5em;
   }
 </style>

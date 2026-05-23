@@ -14,5 +14,9 @@ export const load: PageServerLoad = async ({ params }) => {
         throw error(404, 'No posts found');
     }
     
-    return { posts: slicedPosts, no: Number.parseInt(params.no), size: Math.ceil(posts.length / 10) };
+    return {
+        posts: slicedPosts,
+        no: Number.parseInt(params.no),
+        size: Math.ceil(posts.length / 10)
+    };
 };

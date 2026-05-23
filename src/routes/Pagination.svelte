@@ -7,8 +7,13 @@
     const { idx, size }: Prop = $props();
 </script>
 
-<a href="/post/{Math.max(1, idx - 1)}">이전</a>
-<a href="/post/{Math.min(size, idx - - 1)}">다음</a>
+{#if idx > 1}
+	<a href="/post/{idx - 1}">이전</a>
+{/if}
+
+{#if idx < size}
+	<a href="/post/{idx + 1}">다음</a>
+{/if}
 
 <style>
     a {

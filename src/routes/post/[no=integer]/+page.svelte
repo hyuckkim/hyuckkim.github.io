@@ -1,4 +1,5 @@
 <script lang="ts">
+  import BackButton from '../../BackButton.svelte';
     import HorizontalBlock from '../../HorizontalBlock.svelte';
   import Pagination from '../../Pagination.svelte';
 
@@ -7,6 +8,7 @@
 
 <main>
 	<article>
+		<BackButton href="/"/>
 		<h1>전체 보기</h1>
 		<p>{data.no} 페이지</p>
 	</article>

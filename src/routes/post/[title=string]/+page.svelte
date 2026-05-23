@@ -1,15 +1,12 @@
 <script lang="ts">
-	export let data;
+  import BackButton from '../../BackButton.svelte';
 
-  function returnToBack() {
-    if (location.pathname === '/') return;
-    history.back();
-  }
+	export let data;
 </script>
 <main>
   <article class="post" style:view-transition-name={`post-${data.title}`}>
     <div class="meta">
-      <button on:click={returnToBack} aria-label="Go Back" class="back-button">← 이전으로 돌아가기</button>
+    <BackButton />
       {#if data.meta.date}
       <time>{data.meta.date}</time>
       {/if}
@@ -50,13 +47,6 @@ img {
 :global(img) {
   max-width: 100%;
   height: auto;
-}
-
-button {
-  align-self: baseline;
-  background: none;
-  border: none;
-  cursor: pointer;
 }
 .content {
   border: 1px solid #000;
